@@ -165,3 +165,42 @@ A good way to understand it is:
 Destination Rule is a way that Istio uses to define subsets between pods, in other words, to divide which group of pods are running the old version and which group of pods are running the new version.
 
 ![Destination Rules](./artifacts/05-DestinationRules.png)
+
+## What about a Sticky Canary Release ?
+---
+
+In a real world project it is always a good practice when working with a canary release that if an user got the canary release he should sticky with it during all his experience. And the same applies with the non canary version.
+
+Istio implements `session affinity` or `stickiness` on its loadbalances, specifically on `Destination Rules`. Something like this:
+
+```yaml
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: fleetman-staff-service 
+spec:
+  subsets:
+    - labels:
+        version: safe
+      name: safe
+    - labels:
+        version: risky
+      name: risky
+  trafficPolicy:
+    loadBalancer:
+      consistentHash:
+        useSourceIp: true
+```
+
+However, this approch `does not work! ` with the weighted routes (Canary Releases). Unfortunatelly the weighted routes are evaluated before the request reach the Destination Rules. So it is not possible to make a Sticky Canary Release for now.
+
+![Consistent Hash Limitation](./artifacts/05-ConsistentHash.png)
+
+Thus, it is possible to use this feature to implement some sort of caching in the subset. For example in case of a heavy computation, and it is necessary to improve performance. That way a cache could be saved on a specific pod and all request for a particular user will be redirect to that pod. However, never use this approch to keep a session.
+
+## References
+---
+
+- [`Virtual Service Options`](https://istio.io/latest/docs/reference/config/networking/virtual-service/)
+
+- [`Destination Rules Options`](https://istio.io/latest/docs/reference/config/networking/destination-rule/)
