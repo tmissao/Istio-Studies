@@ -133,4 +133,4 @@ spec:
 
 As a result, we have a Dark Demo based on headers!
 
-![Consistent Hash Limitation](./artifacts/07-DarkRelease.gif)
+![Consistent Hash Limitation](./artifacts/07-DarkReleases.gif)
