@@ -93,6 +93,29 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: webapp-experimental
+spec:
+  selector:
+    matchLabels:
+      app: webapp
+  replicas: 1
+  template: # template for the pods
+    metadata:
+      labels:
+        app: webapp
+        version: experimental
+    spec:
+      containers:
+      - name: webapp
+        image: richardchesterwood/istio-fleetman-webapp-angular:6-experimental
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: production-microservice
+        imagePullPolicy: Always
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: vehicle-telemetry
 spec:
   selector:
