@@ -290,3 +290,5 @@ spec:
       name: experimental
 
 ``` 
+
+With that approach will be the experimental version running on `experimental.fleetman.com:31380` and the original version running on `fleetman.com:31380`.
