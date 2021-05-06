@@ -43,6 +43,7 @@ kubectl apply -f kiali.yaml
 kubectl apply -f jaeger.yaml
 ```
 ## Generating Istio Yaml
+---
 
 ```bash
 istioctl profile dump default > profile-tuned.yaml
