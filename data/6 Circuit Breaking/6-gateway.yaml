@@ -42,3 +42,12 @@ spec:
       interval: 20s # <-- Time Period that Consecutive Errors applies to
       baseEjectionTime: 30s # <-- How long a problematic pod will be removed from loadbalancer
       maxEjectionPercent: 100 # <-- Max Percentage of pods that can be ejected from the loadbalancer
+---
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: istio-system # <-- Applying on Istio Namespaces means that all namespaces will follow this policy
+spec:
+  mtls:
+    mode: STRICT
