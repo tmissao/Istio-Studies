@@ -62,6 +62,10 @@ So if a specific pod fails a request 3 times in a row the circuit break kicks in
 
 ![Circuit Breaker In Action](./artifacts/09-CircuitBreakInAction.gif)
 
+The state of the entire application is degraded (because there are fails), however the failure is not cascaded and the application keeps up and the failure is just local on `fleetman-staff-service`! 
+
+![Degraded System](./artifacts/09-SystemDegraded.png)
+
 A good default for circuit breaker in production is:
 
 ```yaml
