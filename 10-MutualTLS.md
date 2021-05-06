@@ -25,7 +25,7 @@ However, there are some configurations that it is possible to do, and one of the
 ## Permissive mTLS
 ---
 
-![Permissive mTLS](./artifacts/10-PermissiveMTLS.png).
+![Permissive mTLS](./artifacts/10-PermissiveMTLS.png)
 
 In the example above, one of the containers does not have a proxy ("was not deployed with Istio Injection"), and the other container has a proxy. In this case the container without a proxy makes a request to the container that have a proxy, however the proxy cannot automatically upgrade the request from http to https. And as default lets the request between the pods be performed using htts. So, this cenario is called `Permissive mTLS` - where is possible request will be made using mTLS
 
